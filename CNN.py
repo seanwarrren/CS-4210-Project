@@ -9,14 +9,13 @@ from tensorflow.keras.models import Sequential
 
 
 # Load the dataset
-data = pd.read_csv("data.csv")
-df = pd.read_csv("/Users/elvinnguyen/Desktop/CS4210/CS-4210-Project/data.csv")
+df = pd.read_csv("data.csv")
 df = df.drop(["id", "Unnamed: 32"], axis=1)
 
-# Encode target
-df["diagnosis"] = LabelEncoder().fit_transform(df["diagnosis"])  # M=1, B=0
+# Encode target: M=1, B=0
+df["diagnosis"] = LabelEncoder().fit_transform(df["diagnosis"])  
 
-# Get features and labels 
+# Get features and labels
 X = df.drop("diagnosis", axis=1).values
 y = df["diagnosis"].values
 
@@ -53,6 +52,6 @@ model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
 # Train model
 model.fit(X_train, y_train, epochs=20, batch_size=32, validation_split=0.2)
 
-# Evaluate
+# Evaluate model
 loss, accuracy = model.evaluate(X_test, y_test)
 print(f"Test Accuracy: {accuracy:.4f}")
