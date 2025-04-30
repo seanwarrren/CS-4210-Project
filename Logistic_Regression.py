@@ -62,8 +62,8 @@ mean_tpr[-1] = 1.0
 mean_auc = auc(mean_fpr, mean_tpr)
 
 plt.figure(figsize=(8, 6))
-plt.plot(mean_fpr, mean_tpr, label=f"Mean ROC (AUC = {mean_auc:.4f})", color='blue')
-plt.plot([0, 1], [0, 1], 'k--', label="Random Guess")
+plt.plot(mean_fpr, mean_tpr, label=f"Mean ROC (AUC = {mean_auc:.4f})", color="blue")
+plt.plot([0, 1], [0, 1], "k--", label="Random Guess")
 plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.title("Average ROC Curve (10-Fold CV)")
@@ -74,15 +74,17 @@ plt.show()
 
 # boxplot
 plt.figure(figsize=(6, 4))
-plt.boxplot(accuracies, 
-            patch_artist=False,    
-            showmeans=True,
-            meanline=True,          
-            meanprops={"color": "black", "linestyle": "-"},
-            boxprops=dict(color='black'), 
-            capprops=dict(color='black'),
-            whiskerprops=dict(color='black'),
-            medianprops=dict(color='black'))
+plt.boxplot(
+    accuracies,
+    patch_artist=False,
+    showmeans=True,
+    meanline=True,
+    meanprops={"color": "black", "linestyle": "-"},
+    boxprops=dict(color="black"),
+    capprops=dict(color="black"),
+    whiskerprops=dict(color="black"),
+    medianprops=dict(color="black"),
+)
 
 plt.title("Accuracy Distribution Across 10 Folds")
 plt.ylabel("Accuracy")

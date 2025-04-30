@@ -8,11 +8,11 @@ from sklearn.metrics import accuracy_score, roc_curve, auc
 
 # load and preprocess data
 data = pd.read_csv("data.csv")
-data = data.drop(columns=['id', 'Unnamed: 32'])
-data['diagnosis'] = data['diagnosis'].map({'M': 1, 'B': 0})
+data = data.drop(columns=["id", "Unnamed: 32"])
+data["diagnosis"] = data["diagnosis"].map({"M": 1, "B": 0})
 
-X = data.drop(columns=['diagnosis']).values
-y = data['diagnosis'].values
+X = data.drop(columns=["diagnosis"]).values
+y = data["diagnosis"].values
 
 kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
 
@@ -32,7 +32,7 @@ for fold, (train_index, test_index) in enumerate(kf.split(X, y), 1):
     X_test_scaled = scaler.transform(X_test)
 
     # train SVM (with probability estimates for ROC)
-    model = SVC(kernel='rbf', C=1.0, gamma='scale', probability=True)
+    model = SVC(kernel="rbf", C=1.0, gamma="scale", probability=True)
     model.fit(X_train_scaled, y_train)
 
     # predict and evaluate
@@ -58,8 +58,8 @@ mean_tpr[-1] = 1.0
 mean_auc = auc(mean_fpr, mean_tpr)
 
 plt.figure(figsize=(8, 6))
-plt.plot(mean_fpr, mean_tpr, label=f"Mean ROC (AUC = {mean_auc:.4f})", color='blue')
-plt.plot([0, 1], [0, 1], 'k--', label="Random Guess")
+plt.plot(mean_fpr, mean_tpr, label=f"Mean ROC (AUC = {mean_auc:.4f})", color="blue")
+plt.plot([0, 1], [0, 1], "k--", label="Random Guess")
 plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.title("SVM - Average ROC Curve (10-Fold CV)")
@@ -70,15 +70,17 @@ plt.show()
 
 # boxplot
 plt.figure(figsize=(6, 4))
-plt.boxplot(accuracies, 
-            patch_artist=False,     
-            showmeans=True,
-            meanline=True,           
-            meanprops={"color": "black", "linestyle": "-", "linewidth": 2},
-            boxprops=dict(color='black'), 
-            capprops=dict(color='black'),
-            whiskerprops=dict(color='black'),
-            medianprops=dict(color='black'))  
+plt.boxplot(
+    accuracies,
+    patch_artist=False,
+    showmeans=True,
+    meanline=True,
+    meanprops={"color": "black", "linestyle": "-", "linewidth": 2},
+    boxprops=dict(color="black"),
+    capprops=dict(color="black"),
+    whiskerprops=dict(color="black"),
+    medianprops=dict(color="black"),
+)
 
 plt.title("SVM Accuracy Distribution Across 10 Folds")
 plt.ylabel("Accuracy")
